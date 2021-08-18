@@ -12,17 +12,9 @@ export class TasksService {
     private tasksRepository: TasksRepository,
   ) {}
 
-  // createTask(createTaskDto: CreateTaskDto): Task {
-  //   const { title, description } = createTaskDto;
-  //   const task: Task = {
-  //     id: UUID,
-  //     title,
-  //     description,
-  //     status: TaskStatus.OPEN,
-  //   };
-  //   this.tasks.push(task);
-  //   return task;
-  // }
+   createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto);
+  }
   async getTaskById(id: string): Promise<Task> {
     const found = await this.tasksRepository.findOne(id);
     if (!found) {
