@@ -31,6 +31,19 @@ export class TasksService {
     }
   }
 
+  async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+    const task = await this.getTaskById(id);
+    console.log(task.status);
+    console.log(status);
+
+    task.status = status;
+
+    await this.tasksRepository.save(task);
+    console.log(task.status);
+    console.log(status);
+    return task;
+  }
+
   // getAllTasks(): Task[] {
   //   return this.tasks;
   // }
