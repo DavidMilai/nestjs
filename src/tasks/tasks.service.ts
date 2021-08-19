@@ -12,7 +12,7 @@ export class TasksService {
     private tasksRepository: TasksRepository,
   ) {}
 
-   createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+  createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksRepository.createTask(createTaskDto);
   }
   async getTaskById(id: string): Promise<Task> {
@@ -22,6 +22,15 @@ export class TasksService {
     }
     return found;
   }
+
+  async deleteTask(id: string): Promise<void> {
+    const result = await this.tasksRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID: "${id}" not found!`);
+    }
+  }
+
   // getAllTasks(): Task[] {
   //   return this.tasks;
   // }
